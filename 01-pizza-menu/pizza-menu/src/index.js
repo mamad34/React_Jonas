@@ -2,16 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 function App() {
-  return (
-    <h1>
-      Hello bitch
-      <Dick />
-    </h1>
-  );
-}
-
-function Dick() {
-  return <h1>kir to in net </h1>;
+  return <h1>Hello World</h1>;
 }
 
 // React V18
@@ -24,4 +15,4 @@ root.render(
 );
 
 // React Before 18
-// React.render(<App/>)
+// React.render(<App/>, document.getElementById("root"))
