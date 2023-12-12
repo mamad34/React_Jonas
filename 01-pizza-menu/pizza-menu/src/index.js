@@ -72,14 +72,20 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  // const pizzas = [];
+  const numPizzas = pizzas.length;
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name} />
-        ))}
-      </ul>
+      {numPizzas > 0 && (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      )}
+
       {/* <Pizza
         name="Pizza Spinaci"
         ingredient="tomato pizza khoshmaze ommm"
@@ -123,9 +129,16 @@ function Footer() {
   console.log(hour);
   return (
     <footer className="footer">
-      {new Date().toLocaleTimeString()} We , Are currently open
+      {/* react will not render true or false value(isOpen) but numbers yes  */}
+      {isOpen && (
+        <div className="order">
+          <p>We're open until {closeHour}:00. Come visit us or orded online</p>
+          <button className="btn">Order</button>
+        </div>
+      )}
     </footer>
   );
+  // if the isOpen is true then <p>Open</p> will shown
 }
 
 // React V18
