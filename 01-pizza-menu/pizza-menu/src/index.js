@@ -155,10 +155,7 @@ function Footer() {
         </div>
       )} */}
       {isOpen ? (
-        <div className="order">
-          <p>We're open until {closeHour}:00. Come visit us or orded online</p>
-          <button className="btn">Order</button>
-        </div>
+        <Order closeHour={closeHour} />
       ) : (
         <p>
           We're happy to welcome you between {openHour}:00. {closeHour}:00.{" "}
@@ -167,6 +164,17 @@ function Footer() {
     </footer>
   );
   // if the isOpen is true then <p>Open</p> will shown
+}
+
+function Order(props) {
+  return (
+    <div className="order">
+      <p>
+        We're open until {props.closeHour}:00. Come visit us or orded online
+      </p>
+      <button className="btn">Order</button>
+    </div>
+  );
 }
 
 // React V18
