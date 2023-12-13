@@ -112,6 +112,9 @@ function Menu() {
 }
 
 function Pizza(props) {
+  if (props.pizzaObj.soldOut) {
+    return null;
+  }
   return (
     <li className="pizza">
       <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name}></img>
@@ -136,6 +139,12 @@ function Footer() {
   //   alert("sorry we are closed");
   // }
   console.log(hour);
+  // if (isOpen)
+  //   return (
+  //     <p>
+  //       We're happy to welcome you between {openHour}:00. {closeHour}:00.{" "}
+  //     </p>
+  //   );
   return (
     <footer className="footer">
       {/* react will not render true or false value(isOpen) but numbers yes  */}
