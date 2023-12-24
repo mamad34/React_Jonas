@@ -78,12 +78,22 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
+
       {numPizzas > 0 ? (
-        <ul className="pizzas">
-          {pizzas.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
+        // this is React Fragment <>...</> no need for parent element or  <React.Fragment>
+        <React.Fragment>
+          <p>
+            First, select the number of paragraphs of Ipsum you want. The
+            default is 5, but like your local pizza shop, we are flexible. Make
+            what you need.
+          </p>
+
+          <ul className="pizzas">
+            {pizzas.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </React.Fragment>
       ) : (
         <p>We're still working on our menu . Please come back later :)</p>
       )}
