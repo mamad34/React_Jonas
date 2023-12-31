@@ -4,7 +4,14 @@ const messages = [
   "Invest your new income 🤑",
 ];
 export default function App() {
-  const step = 3;
+  const step = 1;
+
+  function handlePrevious() {
+    alert("kossssssss barAks");
+  }
+  function handleNext() {
+    alert("kossssssss bejoloooo");
+  }
 
   return (
     <div className="steps">
@@ -17,10 +24,19 @@ export default function App() {
         Step {step} {messages[step - 1]}
       </p>
       <div className="buttons">
-        <button style={{ backgroundColor: "#7950f2", color: "#fff" }}>
+        <button
+          style={{ backgroundColor: "#7950f2", color: "#fff" }}
+          onClick={handlePrevious}
+          // onMouseEnter={() => {
+          //   alert("kos mikham");
+          // }}
+        >
           Previous
         </button>
-        <button style={{ backgroundColor: "#7950f2", color: "#fff" }}>
+        <button
+          style={{ backgroundColor: "#7950f2", color: "#fff" }}
+          onClick={handleNext}
+        >
           Next
         </button>
       </div>
