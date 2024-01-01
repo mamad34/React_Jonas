@@ -6,13 +6,20 @@ const messages = [
   "Invest your new income 🤑",
 ];
 export default function App() {
-  const [step, setStep] = useState(1);
-
+  let [step, setStep] = useState(1);
+  const [test, setTest] = useState({ name: "Mamad" });
   function handlePrevious() {
-    if (step > 1) setStep(step - 1);
+    if (step > 1) setStep((step -= 1));
+    // equal to step - 1
   }
   function handleNext() {
-    if (step < 3) setStep(step + 1);
+    if (step < 3) setStep(++step);
+    // equal to step + 1
+    // step = step + 1; Wrong
+    // -------------------------
+    // BAD PRACTICE but WORKS
+    // test.name = "Fred";
+    setTest({ name: "Fred" });
   }
 
   return (
@@ -24,6 +31,7 @@ export default function App() {
       </div>
       <p className="message">
         Step {step} {messages[step - 1]}
+        {test.name}
       </p>
       <div className="buttons">
         <button
