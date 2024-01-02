@@ -11,11 +11,24 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(true);
 
   function handlePrevious() {
-    if (step > 1) setStep((step -= 1));
+    // if (step > 1) setStep((step -= 1));
     // equal to step - 1
+    if (step > 1) setStep((currentStep) => currentStep - 1);
   }
   function handleNext() {
-    if (step < 3) setStep(++step);
+    if (step < 3) {
+      // setStep(++step);
+      // setStep(++step);
+      // jump two steps
+
+      setStep((currentStep) => currentStep + 1);
+      // setStep((currentStep) => currentStep + 1);
+      // jump two steps better to use callback function for it to always have te current step
+
+      // setStep(step + 1 );
+      // setStep(step + 1);
+      //jump only one step
+    }
     // equal to step + 1
     // step = step + 1; Wrong
     // -------------------------
@@ -26,7 +39,7 @@ export default function App() {
 
   return (
     <>
-      <button className="close" onClick={() => setIsOpen(!isOpen)}>
+      <button className="close" onClick={() => setIsOpen((is) => !isOpen)}>
         &times;
       </button>
       {isOpen && (
