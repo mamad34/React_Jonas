@@ -58,7 +58,7 @@ export default function App() {
               style={{ backgroundColor: "#7950f2", color: "#fff" }}
               onClick={handlePrevious}
               // onMouseEnter={() => {
-              //   alert("kos mikham");
+              //   alert("k mikham");
               // }}
             >
               Previous
