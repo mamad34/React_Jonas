@@ -5,7 +5,17 @@ const messages = [
   "Apply for jobs 💼",
   "Invest your new income 🤑",
 ];
+
 export default function App() {
+  return (
+    <div>
+      <Steps />
+      <Steps />
+    </div>
+  );
+}
+
+function Steps() {
   let [step, setStep] = useState(1);
   const [test, setTest] = useState({ name: "Mamad" });
   const [isOpen, setIsOpen] = useState(true);
