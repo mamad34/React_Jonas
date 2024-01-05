@@ -55,7 +55,8 @@ function DateCounter() {
       </div>
 
       <h1 className="container">
-        {count} days from today is {changeDate(count)}
+        {count === 0 ? "Today is" : count} days from today is{" "}
+        {changeDate(count)}
       </h1>
     </div>
   );
