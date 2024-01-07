@@ -19,8 +19,12 @@ function Logo() {
   return <h1>Far Away 😍</h1>;
 }
 function Form() {
+  function handleSubmit(event) {
+    event.preventDefault();
+  }
+
   return (
-    <form className="add-form">
+    <form className="add-form" onSubmit={handleSubmit}>
       <h3>What do you need for your 😁💕 trip ?</h3>
       <select>
         {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
@@ -39,7 +43,7 @@ function PackingList() {
     <div className="list">
       <ul>
         {initialItems.map((item) => (
-          <Item item={item} />
+          <Item item={item} key={item.id} />
         ))}
       </ul>
     </div>
