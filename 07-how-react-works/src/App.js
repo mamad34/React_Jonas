@@ -26,6 +26,8 @@ export default function App() {
   );
 }
 
+console.log(<DifferentContent />); // type of DifferentContent
+console.log(DifferentContent()); // wrong for type of div
 function Tabbed({ content }) {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -43,6 +45,9 @@ function Tabbed({ content }) {
       ) : (
         <DifferentContent />
       )}
+
+      {/* never do below  just use jsx*/}
+      {/* {TabContent({ item: content.at(0) })} */}
     </div>
   );
 }
