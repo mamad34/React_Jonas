@@ -25,9 +25,10 @@ export default function App() {
     </div>
   );
 }
-
+/*
 console.log(<DifferentContent />); // type of DifferentContent
 console.log(DifferentContent()); // wrong for type of div
+*/
 function Tabbed({ content }) {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -73,12 +74,37 @@ function TabContent({ item }) {
   console.log("RENDER");
 
   function handleInc() {
-    setLikes(likes + 1);
+    // wrong
+    // setLikes(likes + 1);
+    // Right
+    setLikes((likes) => likes + 1);
+  }
+  function handleTripleInc() {
+    // Wrong
+    // setLikes(likes + 1);
+    // console.log("likes1", likes);
+    // setLikes(likes + 1);
+    // console.log("likes2", likes);
+    // setLikes(likes + 1);
+    // console.log("likes3", likes);
+
+    // Right
+    setLikes((likes) => likes + 1);
+    console.log("Likes1", likes);
+    setLikes((likes) => likes + 1);
+    console.log("Likes2", likes);
+    setLikes((likes) => likes + 1);
+    console.log("Likes3", likes);
+
+    // handleInc();
+    // handleInc();
+    // handleInc();
   }
 
   function handleUndo() {
     setShowDetails(true);
     setLikes(0);
+    console.log(likes);
   }
 
   return (
@@ -94,7 +120,7 @@ function TabContent({ item }) {
         <div className="hearts-counter">
           <span>{likes} ❤️</span>
           <button onClick={handleInc}>+</button>
-          <button>+++</button>
+          <button onClick={handleTripleInc}>+++</button>
         </div>
       </div>
 
