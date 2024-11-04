@@ -51,9 +51,20 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+const KEY = "66f074e6";
+
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+
+  fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`).then((res) =>
+    res.json().then((data) => {
+      console.log(data);
+      // setMovies(data.Search);
+      // set movies will re render the component and so the fetch will refire every time in an infinit loop
+      // so this is wrong way
+    })
+  );
   return (
     <>
       <NavBar>
