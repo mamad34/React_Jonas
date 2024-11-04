@@ -56,16 +56,33 @@ const KEY = "66f074e6";
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
+  const query = "interstellar";
 
   useEffect(function () {
-    fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`).then((res) =>
-      res.json().then((data) => {
-        console.log(data.Search);
-        setMovies(data.Search);
-      })
-    );
-    // epmty array means only happen in mount (very first time run) after it painted
+    async function fetchMovies() {
+      const res = await fetch(
+        `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+      );
+      const data = await res.json();
+      setMovies(data.Search);
+      console.log(data.Search);
+      // console.log(movies)
+      // will return an empty array the old value of movies state because setMovies dose not happen immediately
+    }
+    fetchMovies();
   }, []);
+
+  //-------------------------------
+
+  // useEffect(function () {
+  //   fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`).then((res) =>
+  //     res.json().then((data) => {
+  //       console.log(data.Search);
+  //       setMovies(data.Search);
+  //     })
+  //   );
+  //   // epmty array means only happen in mount (very first time run) after it painted
+  // }, []);
 
   // fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`).then((res) =>
   //   res.json().then((data) => {
