@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.css";
 
 const tempMovieData = [
@@ -57,14 +57,24 @@ export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
 
-  fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`).then((res) =>
-    res.json().then((data) => {
-      console.log(data);
-      // setMovies(data.Search);
-      // set movies will re render the component and so the fetch will refire every time in an infinit loop
-      // so this is wrong way
-    })
-  );
+  useEffect(function () {
+    fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`).then((res) =>
+      res.json().then((data) => {
+        console.log(data.Search);
+        setMovies(data.Search);
+      })
+    );
+    // epmty array means only happen in mount (very first time run) after it painted
+  }, []);
+
+  // fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`).then((res) =>
+  //   res.json().then((data) => {
+  //     console.log(data.Search);
+  // setMovies(data.Search);
+  // set movies will re render the component and so the fetch will refire every time in an infinit loop
+  // so this is wrong way
+  // })
+  // );
   return (
     <>
       <NavBar>
