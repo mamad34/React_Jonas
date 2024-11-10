@@ -54,39 +54,63 @@ const average = (arr) =>
 const KEY = "66f074e6";
 
 export default function App() {
+  const [query, setQuery] = useState("inception");
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const query = "interstellar";
+  const tempQuery = "interstellar";
+  /*
+  useEffect(function () {
+    console.log("After initial render");
+  }, []);
 
   useEffect(function () {
-    async function fetchMovies() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-        );
-        if (!res.ok)
-          throw new Error("Somthing went wrong with fetching movies");
+    console.log("After every render");
+  });
 
-        const data = await res.json();
+  useEffect(
+    function () {
+      console.log("Sync with query");
+    },
+    [query]
+  );
 
-        if (data.Response === "False") throw new Error("Movie not Found");
-
-        setMovies(data.Search);
-        // console.log(data.Search);
-        // console.log(movies)
-        // will return an empty array the old value of movies state because setMovies dose not happen immediately
-      } catch (error) {
-        console.log(error.message);
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
+  console.log("During render");
+*/
+  useEffect(
+    function () {
+      async function fetchMovies() {
+        try {
+          setIsLoading(true);
+          setError("");
+          const res = await fetch(
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+          );
+          if (!res.ok)
+            throw new Error("Somthing went wrong with fetching movies");
+          const data = await res.json();
+          if (data.Response === "False") throw new Error("Movie not Found");
+          setMovies(data.Search);
+          // console.log(data.Search);
+          // console.log(movies)
+          // will return an empty array the old value of movies state because setMovies dose not happen immediately
+        } catch (error) {
+          console.log(error.message);
+          setError(error.message);
+        } finally {
+          setIsLoading(false);
+        }
       }
-    }
-    fetchMovies();
-  }, []);
+      if (!query.length) {
+        setMovies([]);
+        setError("");
+        return;
+      }
+      fetchMovies();
+    },
+    [query]
+  );
 
   //-------------------------------
 
@@ -112,7 +136,7 @@ export default function App() {
     <>
       <NavBar>
         <Logo />
-        <Search />
+        <Search query={query} setQuery={setQuery} />
         <NumResults movies={movies} />
       </NavBar>
 
@@ -132,7 +156,6 @@ export default function App() {
           {!isLoading && !error && <MovieList movies={movies} />}
           {error && <ErrorMessage message={error} />}
         </Box>
-
         <Box>
           <WatchedSummary watched={watched} />
           <WatchedMoviesList watched={watched} />
@@ -175,8 +198,7 @@ function Logo() {
   );
 }
 
-function Search() {
-  const [query, setQuery] = useState("");
+function Search({ query, setQuery }) {
   return (
     <input
       className="search"
