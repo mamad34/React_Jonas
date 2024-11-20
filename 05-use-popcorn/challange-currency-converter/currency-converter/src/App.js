@@ -1,12 +1,12 @@
 // `https://api.frankfurter.app/latest?amount=100&from=EUR&to=USD`
 import { useEffect, useState } from "react";
 export default function App() {
-  useEffect(async function () {
-    const res = await fetch(
-      `https://api.frankfurter.app/latest?amount=100&from=EUR&to=USD`
-    );
-    console.log(res.json);
-  }, []);
+  // useEffect(async function () {
+  //   const res = await fetch(
+  //     `https://api.frankfurter.app/latest?amount=100&from=EUR&to=USD`
+  //   );
+  //   console.log(res.json);
+  // }, []);
 
   return (
     <div>
