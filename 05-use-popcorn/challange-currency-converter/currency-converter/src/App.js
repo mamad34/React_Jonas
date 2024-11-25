@@ -5,13 +5,17 @@ export default function App() {
 
   useEffect(function () {
     async function fetchData() {
-      const res = await fetch(
-        `https://api.frankfurter.app/latest?amount=100&from=EUR&to=USD`
-      );
-      const data = await res.json(); // Await here to resolve the Promise
-      console.log("data", data); // Now `data` contains the actual JSON object
+      try {
+        const res = await fetch(
+          `https://api.frankfurter.app/latest?amount=100&from=EUR&to=USD`
+        );
+        const data = await res.json(); // Await here to resolve the Promise
+        console.log("data", data); // Now `data` contains the actual JSON object
+      } catch (e) {
+        console.error("Error fetching data:", e);
+      }
+      fetchData();
     }
-    fetchData();
   }, []);
 
   return (
