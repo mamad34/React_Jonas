@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 
 export default function App() {
   const [output, setOutput] = useState("OUTPUT");
-  const [input, setInput] = useState("100");
+  const [input, setInput] = useState(1);
   const [fromCurrency, setFromCurrency] = useState("EUR"); // Default "from" currency
   const [toCurrency, setToCurrency] = useState("USD"); // Default "to" currency
+  const [isLoading, setIsLoading] = useState(false); // Default "to" currency
 
   function handleInputChange(event) {
     setInput(event.target.value);
@@ -25,14 +26,17 @@ export default function App() {
       const controller = new AbortController();
       async function fetchData() {
         try {
+          setIsLoading(true);
           const res = await fetch(
             `https://api.frankfurter.app/latest?amount=${input}&from=${fromCurrency}&to=${toCurrency}`,
             { signal: controller.signal }
           );
+
           const data = await res.json(); // Await here to resolve the Promise
           setOutput(data.rates[toCurrency]);
           console.log("data rates []", data.rates[toCurrency]);
           console.log("data", data); // Now `data` contains the actual JSON object
+          setIsLoading(false);
         } catch (e) {
           if (e.name === "AbortError") {
             console.log("Fetch aborted"); // Log aborted requests
@@ -41,6 +45,7 @@ export default function App() {
           }
         }
       }
+      if (fromCurrency === toCurrency) return setOutput(input);
       fetchData();
       // Cleanup function to abort the fetch if input changes before completion
       return () => controller.abort();
@@ -50,14 +55,27 @@ export default function App() {
 
   return (
     <div>
-      <input type="text" onChange={(event) => handleInputChange(event)} />
-      <select value={fromCurrency} onChange={handleFromCurrencyChange}>
+      <input
+        type="text"
+        value={input}
+        disabled={isLoading}
+        onChange={(event) => handleInputChange(event)}
+      />
+      <select
+        value={fromCurrency}
+        onChange={handleFromCurrencyChange}
+        disabled={isLoading}
+      >
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
         <option value="CAD">CAD</option>
         <option value="INR">INR</option>
       </select>
-      <select value={toCurrency} onChange={handleToCurrencyChange}>
+      <select
+        value={toCurrency}
+        onChange={handleToCurrencyChange}
+        disabled={isLoading}
+      >
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
         <option value="CAD">CAD</option>
