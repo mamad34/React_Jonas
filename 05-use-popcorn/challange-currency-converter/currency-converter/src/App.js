@@ -8,8 +8,8 @@ export default function App() {
       const res = await fetch(
         `https://api.frankfurter.app/latest?amount=100&from=EUR&to=USD`
       );
-      const data = res.json();
-      console.log("", data);
+      const data = await res.json(); // Await here to resolve the Promise
+      console.log("data", data); // Now `data` contains the actual JSON object
     }
     fetchData();
   }, []);
