@@ -15,25 +15,6 @@ export default function App() {
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
 
-  /*
-  useEffect(function () {
-    console.log("After initial render");
-  }, []);
-
-  useEffect(function () {
-    console.log("After every render");
-  });
-
-  useEffect(
-    function () {
-      console.log("Sync with query");
-    },
-    [query]
-  );
-
-  console.log("During render");
-*/
-
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
   }
@@ -68,9 +49,6 @@ export default function App() {
 
           setMovies(data.Search);
           setError("");
-          // console.log(data.Search);
-          // console.log(movies)
-          // will return an empty array the old value of movies state because setMovies dose not happen immediately
         } catch (error) {
           console.log(error.message);
           if (error.name !== "AbortError") {
@@ -95,27 +73,6 @@ export default function App() {
     },
     [query]
   );
-
-  //-------------------------------
-
-  // useEffect(function () {
-  //   fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`).then((res) =>
-  //     res.json().then((data) => {
-  //       console.log(data.Search);
-  //       setMovies(data.Search);
-  //     })
-  //   );
-  //   // epmty array means only happen in mount (very first time run) after it painted
-  // }, []);
-
-  // fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`).then((res) =>
-  //   res.json().then((data) => {
-  //     console.log(data.Search);
-  // setMovies(data.Search);
-  // set movies will re render the component and so the fetch will refire every time in an infinit loop
-  // so this is wrong way
-  // })
-  // );
   return (
     <>
       <NavBar>
@@ -295,6 +252,10 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     Genre: genre,
   } = movie;
   console.log(title, year);
+
+  // /* eslint-disable */
+  // if (imdbRating > 8) [isTop, setIsTop] = useState(true);
+  // if (imdbRating > 8) return <p>Greatest ever!</p>;
 
   function handleAdd() {
     const newWatchedMovie = {
