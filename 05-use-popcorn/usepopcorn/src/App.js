@@ -170,6 +170,12 @@ function Logo() {
 }
 
 function Search({ query, setQuery }) {
+  // How NOT to select DOM Element in React
+  // useEffect(function () {
+  //   const el = document.querySelector(".search");
+  //   console.log("kose asbe abi: ", el);
+  //   el.focus();
+  // }, []);
   return (
     <input
       className="search"
